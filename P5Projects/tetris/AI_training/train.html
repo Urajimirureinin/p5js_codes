@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+<style>
+#intest,#gaku,#inparm {
+  margin: 10px;
+  width: 80%; 
+}
+
+#btnarea,#clr {
+  margin: 10px;
+}
+
+#kekka {
+  background: #ecf0f1;
+}
+
+</style>
+  <title>Brain</title>
+  <script src="https://cdn.rawgit.com/BrainJS/brain.js/master/browser.js"></script>
+</head>
+<body>
+    <div id="btnarea">
+    <button id="jikko">学習</button>
+    <button id="parm">パラメタ設定</button>
+    <button id="download">ダウンロード</button>
+    <input type="file" id="file" name="file" accept=".json">
+    <button id="test">テスト</button>
+    </div>
+    <div id="clr">
+    <button id="jikkoclr">学習クリア</button>
+    <button id="testclr">テストクリア</button>
+    <button id="parmclr">パラメタクリア</button>
+    </div>
+<div>network用パラメータ</div>
+  <textarea id="inparm" rows="3" placeholder="未指定時はデフォルト"></textarea>
+<div>テスト用データ</div>
+  <textarea id="intest" rows="4" placeholder="テスト用データ"></textarea>
+<div>学習用データ</div>
+  <textarea id="gaku" rows="5" placeholder="学習用データ"></textarea>
+<div>=== ＬＯＧ（新しい順） ===</div>
+  <div id="kekka"></div> 
+
+<script>
+var network;
+var json,result,result2;
+var kekka=document.getElementById('kekka');
+
+alert('最初にbrain networkのパラメターを設定してください');
+
+
+
+
+// ローカルストレージ読込
+var stokey1 = 'gaku20180920';
+var str = window.localStorage.getItem(stokey1);
+if (str == null) {
+  console.log('ローカルストレージに学習情報なし');
+  kekka.innerHTML = 'ローカルストレージに学習情報なし'+ '<br>' + kekka.innerHTML;
+} else {
+  if (str == '') {
+    console.log('ローカルストレージに学習情報が空');
+    kekka.innerHTML = 'ローカルストレージに学習情報が空'+ '<br>' + kekka.innerHTML;
+  } else {
+    console.log('ローカルストレージより学習情報取得');
+    kekka.innerHTML = 'ローカルストレージより学習情報取得' + '<br>' + kekka.innerHTML;
+    document.getElementById('gaku').value=str;
+  };
+};
+
+var stokey2 = 'test20180920';
+var str2 = window.localStorage.getItem(stokey2);
+if (str2 == null) {
+  console.log('ローカルストレージにテスト情報なし');
+  kekka.innerHTML = 'ローカルストレージにテスト情報なし' + '<br>' + kekka.innerHTML;
+} else {
+  if (str2 == '') {
+    console.log('ローカルストレージにテスト情報が空');
+    kekka.innerHTML = 'ローカルストレージにテスト情報が空'+ '<br>' + kekka.innerHTML;
+  } else {
+    console.log('ローカルストレージよりテスト情報取得');
+    kekka.innerHTML = 'ローカルストレージよりテスト情報取得' + '<br>' + kekka.innerHTML;
+    document.getElementById('intest').value=str2;
+  };
+};
+
+
+var stokey3 = 'parm20180920';
+var str3 = window.localStorage.getItem(stokey3);
+if (str3 == null) {
+  console.log('ローカルストレージにパラメタ情報なし');
+  kekka.innerHTML = 'ローカルストレージにパラメタ情報なし' + '<br>' + kekka.innerHTML;
+} else {
+  if (str3 == '') {
+    console.log('ローカルストレージにパラメタが空');
+    kekka.innerHTML = 'ローカルストレージにパラメタ情報が空'+ '<br>' + kekka.innerHTML;
+  } else {
+    console.log('ローカルストレージよりテスト情報取得');
+    kekka.innerHTML = 'ローカルストレージよりパラメタ情報取得' + '<br>' + kekka.innerHTML;
+    document.getElementById('inparm').value=str3;
+  };
+};
+
+// 学習ボタンの処理
+var btn2 = document.getElementById('jikko');
+btn2.addEventListener('click', function() {
+
+  // 学習用データのオブジェクト化
+  var gakudata = new Object();
+
+  var wkgakudata = document.getElementById('gaku').value;
+  window.localStorage.setItem(stokey1, wkgakudata);
+
+  gakudata = (new Function('return ' + wkgakudata))();
+
+  var date1 = new Date();
+  console.log('◆学習開始');
+  console.log(date1);
+  kekka.innerHTML = '◆学習開始' + '<br>' + kekka.innerHTML;
+  kekka.innerHTML = date1 + '<br>' + kekka.innerHTML;
+  network.train(gakudata);
+
+  var date2 = new Date();
+  console.log('◆学習終了');
+  console.log(date2);
+  kekka.innerHTML = '◆学習終了' + '<br>' + kekka.innerHTML;
+  kekka.innerHTML = date2 + '<br>' + kekka.innerHTML;
+
+  console.log('全学習時間：'+(date2-date1));
+  kekka.innerHTML = '全学習時間：'+ (date2-date1) + '<br>' + kekka.innerHTML;
+  json = network.toJSON();
+
+});
+
+
+// パラメータ設定の処理
+var btn6 = document.getElementById('parm');
+btn6.addEventListener('click', function() {
+
+  var wkparmdata = document.getElementById('inparm').value;
+  if (wkparmdata == ''){
+    // Brain
+    network = new brain.NeuralNetwork();
+    kekka.innerHTML = 'デフォルトパラメータ<br>' + kekka.innerHTML;
+  } else {
+
+    // パラメータデータのオブジェクト化
+    var parmdata = new Object();
+
+    window.localStorage.setItem(stokey3, wkparmdata);
+    parmdata = (new Function('return ' + wkparmdata))();
+    console.log(parmdata);
+    // Brain
+    network = new brain.NeuralNetwork(parmdata);
+    kekka.innerHTML = JSON.stringify(parmdata) + '<br>' + kekka.innerHTML;
+
+    
+  };
+
+
+
+
+  console.log('◆パラメータ設定済');
+  kekka.innerHTML = '◆◆パラメータ設定済' + '<br>' + kekka.innerHTML;
+
+});
+
+
+// テストボタンの処理
+var btn3 = document.getElementById('test');
+btn3.addEventListener('click', function() {
+
+  // テスト用データのオブジェクト化
+  var testdata = new Object();
+
+  var wktestdata = document.getElementById('intest').value;
+  window.localStorage.setItem(stokey2, wktestdata);
+  testdata = (new Function('return ' + wktestdata))();
+
+  var date1 = new Date();
+  console.log('◆テスト開始');
+  console.log(date1);
+  kekka.innerHTML = '◆テスト開始' + '<br>' + kekka.innerHTML;
+  kekka.innerHTML = date1 + '<br>' + kekka.innerHTML;
+
+  // テスト実行１　network.run
+  result2 = network.run(testdata);
+  console.log('run結果');
+  console.log(result2);
+  kekka.innerHTML = 'run結果' + '<br>' + kekka.innerHTML;
+  kekka.innerHTML = JSON.stringify(result2) + '<br>' + kekka.innerHTML;
+  // テスト実行２　brain.likely
+  result = brain.likely(testdata, network);
+  console.log('likely結果');
+  console.log(result);
+  kekka.innerHTML = 'likely結果' + '<br>' + kekka.innerHTML;
+  kekka.innerHTML = result + '<br>' + kekka.innerHTML;
+  var date2 = new Date();
+  console.log('◆テスト終了');
+  console.log(date2);
+  kekka.innerHTML = '◆テスト終了' + '<br>' + kekka.innerHTML;
+  kekka.innerHTML = date2 + '<br>' + kekka.innerHTML;
+
+
+  console.log('テスト時間：'+(date2-date1));
+  kekka.innerHTML = 'テスト時間：'+ (date2-date1) + '<br>' + kekka.innerHTML;
+
+
+
+
+
+});
+
+
+// 学習用データクリアの処理
+var btn4 = document.getElementById('jikkoclr');
+btn4.addEventListener('click', function() {
+
+  document.getElementById('gaku').value = '';
+
+});
+
+
+// テスト用データクリアの処理
+var btn5 = document.getElementById('testclr');
+btn5.addEventListener('click', function() {
+
+  document.getElementById('intest').value = '';
+
+});
+
+
+// パラメタ用データクリアの処理
+var btn7 = document.getElementById('parmclr');
+btn7.addEventListener('click', function() {
+
+  document.getElementById('inparm').value = '';
+
+});
+
+
+// ダウンロードボタンの処理
+var btn = document.getElementById('download');
+btn.addEventListener('click', function() {
+  console.log('◆学習結果保存開始');
+  kekka.innerHTML = '◆学習結果保存開始' + '<br>' + kekka.innerHTML;
+
+  // 学習結果JSONを取得
+  var content = JSON.stringify(json);
+
+  // Blob形式に変換する
+  let blob = new Blob([content]);
+
+  // Blobデータに対するURLを発行する
+  let blobURL = window.URL.createObjectURL(blob);
+
+  // URLをaタグに設定する
+  let a = document.createElement('a');
+  a.href = blobURL;
+
+  // download属性でダウンロード時のファイル名を指定
+  if (typeof aaresult === "undefined") {
+    a.download="noname.json";
+  } else {
+    a.download = aaresult.name;
+  }; 
+
+  document.body.appendChild(a);
+
+  // CLickしてダウンロード
+  a.click();
+
+  // 終わったら不要なので要素を削除
+  a.parentNode.removeChild(a);
+
+　console.log('◆学習結果保存完了');
+  kekka.innerHTML = '◆学習結果保存完了' + '<br>' + kekka.innerHTML;
+
+
+});
+
+
+// ファイル選択ボタンの処理
+
+var el2 = document.getElementById("file");
+ 
+el2.addEventListener( 'change', function(e) {
+  console.log('◆学習結果読込開始');
+  kekka.innerHTML = '◆学習結果読込開始' + '<br>' + kekka.innerHTML;
+  var result = e.target.files[0];
+  aaresult=e.target.files[0];
+
+
+  //FileReaderのインスタンスを作成する
+  var reader = new FileReader();
+
+  //読み込んだファイルの中身を取得する
+  reader.readAsText( result );
+
+  //ファイルの中身を取得後に処理を行う
+  reader.addEventListener( 'load', function() {
+  　　console.log('◆学習結果読込完了');
+      kekka.innerHTML = '◆学習結果読込完了' + '<br>' + kekka.innerHTML;
+
+      var afttrain = JSON.parse(reader.result)
+      console.log(afttrain);
+      json = afttrain;
+      network.fromJSON(afttrain);
+      kekka.innerHTML = aaresult.name + ' 取得完了' + '<br>' + kekka.innerHTML;
+
+  })
+ 
+});
+
+</script>
+
+</body>
+</html>

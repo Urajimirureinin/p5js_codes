@@ -1,0 +1,372 @@
+{
+    "0": [
+        {
+            "key": "A0",
+            "frequency": "27.5"
+        },
+        {
+            "key": "A#0",
+            "frequency": "29.135"
+        },
+        {
+            "key": "B0",
+            "frequency": "30.868"
+        }
+    ],
+    "1": [
+        {
+            "key": "C1",
+            "frequency": "32.703"
+        },
+        {
+            "key": "C#1",
+            "frequency": "34.648"
+        },
+        {
+            "key": "D1",
+            "frequency": "36.708"
+        },
+        {
+            "key": "D#1",
+            "frequency": "38.891"
+        },
+        {
+            "key": "E1",
+            "frequency": "41.203"
+        },
+        {
+            "key": "F1",
+            "frequency": "43.654"
+        },
+        {
+            "key": "F#1",
+            "frequency": "46.249"
+        },
+        {
+            "key": "G1",
+            "frequency": "48.999"
+        },
+        {
+            "key": "G#1",
+            "frequency": "51.913"
+        },
+        {
+            "key": "A1",
+            "frequency": "55"
+        },
+        {
+            "key": "A#1",
+            "frequency": "58.27"
+        },
+        {
+            "key": "B1",
+            "frequency": "61.735"
+        }
+    ],
+    "2": [
+        {
+            "key": "C2",
+            "frequency": "65.406"
+        },
+        {
+            "key": "C#2",
+            "frequency": "69.296"
+        },
+        {
+            "key": "D2",
+            "frequency": "73.416"
+        },
+        {
+            "key": "D#2",
+            "frequency": "77.782"
+        },
+        {
+            "key": "E2",
+            "frequency": "82.407"
+        },
+        {
+            "key": "F2",
+            "frequency": "87.307"
+        },
+        {
+            "key": "F#2",
+            "frequency": "92.499"
+        },
+        {
+            "key": "G2",
+            "frequency": "97.999"
+        },
+        {
+            "key": "G#2",
+            "frequency": "103.826"
+        },
+        {
+            "key": "A2",
+            "frequency": "110"
+        },
+        {
+            "key": "A#2",
+            "frequency": "116.541"
+        },
+        {
+            "key": "B2",
+            "frequency": "123.471"
+        }
+    ],
+    "3": [
+        {
+            "key": "C3",
+            "frequency": "130.813"
+        },
+        {
+            "key": "C#3",
+            "frequency": "138.591"
+        },
+        {
+            "key": "D3",
+            "frequency": "146.832"
+        },
+        {
+            "key": "D#3",
+            "frequency": "155.563"
+        },
+        {
+            "key": "E3",
+            "frequency": "164.814"
+        },
+        {
+            "key": "F3",
+            "frequency": "174.614"
+        },
+        {
+            "key": "F#3",
+            "frequency": "184.997"
+        },
+        {
+            "key": "G3",
+            "frequency": "195.998"
+        },
+        {
+            "key": "G#3",
+            "frequency": "207.652"
+        },
+        {
+            "key": "A3",
+            "frequency": "220"
+        },
+        {
+            "key": "A#3",
+            "frequency": "233.082"
+        },
+        {
+            "key": "B3",
+            "frequency": "246.942"
+        }
+    ],
+    "4": [
+        {
+            "key": "C4",
+            "frequency": "261.626"
+        },
+        {
+            "key": "C#4",
+            "frequency": "277.183"
+        },
+        {
+            "key": "D4",
+            "frequency": "293.665"
+        },
+        {
+            "key": "D#4",
+            "frequency": "311.127"
+        },
+        {
+            "key": "E4",
+            "frequency": "329.628"
+        },
+        {
+            "key": "F4",
+            "frequency": "349.228"
+        },
+        {
+            "key": "F#4",
+            "frequency": "369.994"
+        },
+        {
+            "key": "G4",
+            "frequency": "391.995"
+        },
+        {
+            "key": "G#4",
+            "frequency": "415.305"
+        },
+        {
+            "key": "A4",
+            "frequency": "440"
+        },
+        {
+            "key": "A#4",
+            "frequency": "466.164"
+        },
+        {
+            "key": "B4",
+            "frequency": "493.883"
+        }
+    ],
+    "5": [
+        {
+            "key": "C5",
+            "frequency": "523.251"
+        },
+        {
+            "key": "C#5",
+            "frequency": "554.365"
+        },
+        {
+            "key": "D5",
+            "frequency": "587.33"
+        },
+        {
+            "key": "D#5",
+            "frequency": "622.254"
+        },
+        {
+            "key": "E5",
+            "frequency": "659.255"
+        },
+        {
+            "key": "F5",
+            "frequency": "698.456"
+        },
+        {
+            "key": "F#5",
+            "frequency": "739.989"
+        },
+        {
+            "key": "G5",
+            "frequency": "783.991"
+        },
+        {
+            "key": "G#5",
+            "frequency": "830.609"
+        },
+        {
+            "key": "A5",
+            "frequency": "880"
+        },
+        {
+            "key": "A#5",
+            "frequency": "932.328"
+        },
+        {
+            "key": "B5",
+            "frequency": "987.767"
+        }
+    ],
+    "6": [
+        {
+            "key": "C6",
+            "frequency": "1046.502"
+        },
+        {
+            "key": "C#6",
+            "frequency": "1108.731"
+        },
+        {
+            "key": "D6",
+            "frequency": "1174.659"
+        },
+        {
+            "key": "D#6",
+            "frequency": "1244.508"
+        },
+        {
+            "key": "E6",
+            "frequency": "1318.51"
+        },
+        {
+            "key": "F6",
+            "frequency": "1396.913"
+        },
+        {
+            "key": "F#6",
+            "frequency": "1479.978"
+        },
+        {
+            "key": "G6",
+            "frequency": "1567.982"
+        },
+        {
+            "key": "G#6",
+            "frequency": "1661.219"
+        },
+        {
+            "key": "A6",
+            "frequency": "1760"
+        },
+        {
+            "key": "A#6",
+            "frequency": "1864.655"
+        },
+        {
+            "key": "B6",
+            "frequency": "1975.533"
+        }
+    ],
+    "7": [
+        {
+            "key": "C7",
+            "frequency": "2093.005"
+        },
+        {
+            "key": "C#7",
+            "frequency": "2217.461"
+        },
+        {
+            "key": "D7",
+            "frequency": "2349.318"
+        },
+        {
+            "key": "D#7",
+            "frequency": "2489.016"
+        },
+        {
+            "key": "E7",
+            "frequency": "2637.02"
+        },
+        {
+            "key": "F7",
+            "frequency": "2793.826"
+        },
+        {
+            "key": "F#7",
+            "frequency": "2959.955"
+        },
+        {
+            "key": "G7",
+            "frequency": "3135.963"
+        },
+        {
+            "key": "G#7",
+            "frequency": "3322.438"
+        },
+        {
+            "key": "A7",
+            "frequency": "3520"
+        },
+        {
+            "key": "A#7",
+            "frequency": "3729.31"
+        },
+        {
+            "key": "B7",
+            "frequency": "3951.066"
+        }
+    ],
+    "8": [
+        {
+            "key": "C8",
+            "frequency": "4186.009"
+        }
+    ]
+}

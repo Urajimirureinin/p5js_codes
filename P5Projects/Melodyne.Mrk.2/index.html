@@ -1,0 +1,149 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">body{margin:0px; padding:0px;}</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+	<script type="text/javascript" src="https://unpkg.com/tone@latest/build/Tone.js"></script>
+	<script type="text/javascript" src="https://unpkg.com/@tonejs/ui@0.0.8/build/tonejs-ui.js"></script>
+	<script type="text/javascript" src="https://unpkg.com/@tonejs/midi"></script>
+	<style>
+		header {
+  			position: fixed;
+  			top: 0;
+  			left: 0;
+  			width: 100%;
+			background: white;
+		 	z-index: 100;
+  			display: flex;
+  			justify-content: space-between;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<p>pitch shifter</p>
+		<input type="file" accept="audio/*,.mp3" id="fileInput">
+		<button onclick="uploadFile()">mp3ファイルをアップロード</button>
+		<p class="file_alert"></p>
+		<div class="loding"></div>
+		<style>
+			.loader {
+  				border: 12px solid #fafafa;
+  				border-radius: 50%;
+  				border-top: 12px solid #3498db;
+  				width: 1rem;
+  				height: 1rem;
+			  	animation: spin 1s linear infinite;
+			}
+
+			@keyframes spin{
+  				0%{
+    				transform: rotate(0deg);  /*アニメーション開始時にどういう状態か？*/
+  				}
+  				100%{
+    				transform: rotate(360deg); /*アニメーション終了時にどういう状態か？*/
+  				}
+			}
+		</style>
+		<script>
+			/*
+  			function uploadFile() {
+    			const fileInput = document.getElementById('fileInput');
+    			const file = fileInput.files[0];
+	    		const alertElement = document.querySelector('.file_alert');
+
+				alertElement.textContent = "ファイルをmidiに変換しています。数分かかることがあります。"
+			    if (!file) {
+        			alertElement.textContent = 'ファイルを選択してください。';
+        			return;
+    			}
+
+			    const reader = new FileReader();
+    			reader.onload = function(event) {
+        			// ファイルの内容をBase64エンコード形式で取得
+        			const fileContent = event.target.result;
+				
+					console.log(fileContent);
+       				// pywebview APIを使用してPython関数を呼び出す
+        			pywebview.api.process_audio_file(fileContent, file.name)
+            			.then(response => {
+            	    		alertElement.textContent = '変換成功: ' + response;
+        	    		})
+    	        		.catch(error => {
+	                		alertElement.textContent = '変換失敗: ' + error;
+            			});
+    			};
+
+		  	  	reader.readAsDataURL(file); // ファイルをBase64形式に変換
+
+			}
+			*/
+
+			async function uploadFile() {
+            	const fileInput = document.getElementById('fileInput');
+            	const file = fileInput.files[0];
+            	const alertElement = document.querySelector('.file_alert');
+            	const loadingDiv = document.querySelector('.loading');
+
+	            alertElement.textContent = "ファイルをmidiに変換しています。数分かかることがあります。";
+    	        if (!file) {
+        	        alertElement.textContent = 'ファイルを選択してください。';
+            	    return;
+            	}
+
+            	// ローディング状態に変更
+            	if (loadingDiv) loadingDiv.id = 'loader';
+
+		            const reader = new FileReader();
+        	    reader.onload = async function(event) {
+            	    const fileContent = event.target.result;
+
+                	try {
+                    	// Python関数を非同期的に呼び出す
+                    	const response = await pywebview.api.process_audio_file(fileContent, file.name);
+                    	alertElement.textContent = '変換成功: ' + response;
+                	} catch (error) {
+                    	alertElement.textContent = '変換失敗: ' + error;
+                	} finally {
+                    	// 処理完了後、ローディング状態を解除
+                    	if (loadingDiv) loadingDiv.id = 'not_loading';
+                	}
+            	};
+
+            	reader.readAsDataURL(file); // ファイルをBase64形式に変換
+        	}
+
+			async function playMIDI() {
+  				const midiUrl = './output_files/input_audio_chinpo_basic_pitch.mid'; // 再生するMIDIファイルのパスを指定
+
+			  	// MIDIファイルを取得して再生
+  				const response = await fetch(midiUrl);
+  				const arrayBuffer = await response.arrayBuffer();
+  				const midi = await new Tone.Midi(arrayBuffer);
+
+		 	 	// シンセサイザーを作成
+  				const synth = await new Tone.PolySynth(Tone.Synth).toDestination();
+
+	  			// MIDIファイルをTone.jsで再生
+  				midi.tracks.forEach(track => {
+   	 				track.notes.forEach(note => {
+      					synth.triggerAttackRelease(
+        					note.name,
+        					note.duration,
+        					note.time,
+					        note.velocity
+      					);
+    				});
+  				});
+
+	  			// 再生を開始
+  				Tone.Transport.start();
+			}
+		</script>
+		<button onclick="playMIDI()">再生</button>
+	</header>
+	<main>
+		<script type="module" src="./src/tempo_resize.js"></script>
+	</main>
+</body>
+</html>

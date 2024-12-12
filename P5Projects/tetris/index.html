@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js"></script>
+      <script src="//unpkg.com/brain.js"></script>
+      <title>テトリス</title>
+      <style>
+        #container{
+          position: relative;
+          margin: auto;
+          width: 700px;
+        }
+
+        #next-canvas{
+          position: absolute; 
+          top: 0;
+          left:400px;
+        }
+
+        #img-howto{
+          position: absolute;
+          bottom: 200px;
+          left: 360px;
+        }
+
+        #start-btn {
+          position: absolute;
+          left: 400px;
+          bottom: 0;
+          width: 180px;
+          text-align: center;
+          font-size: 16px;
+          color: #FFF;
+          text-decoration: none;
+          font-weight: bold;
+          padding: 12px 24px;
+          border:none;
+          border-radius: 4px;
+          background-image: linear-gradient(to top, #c471f5 0%, #fa71cd 100%);
+          transition: .5s;
+          background-size: 200%;
+        }
+
+        #start-btn:hover {
+          background-position: right center;
+        }
+      </style>
+  </head>
+  <body>
+    <!--学習用
+    <div>
+      <textarea id="logArea" style="width: 100%; height: 200px;" readonly></textarea>
+    </div>
+    -->
+    <script src="PvC_tetris.js"></script>
+  </body>
+</html>
